@@ -1,11 +1,12 @@
 {
-  "name": "bank-kata",
+  "name": "roman-numerals-kata",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "test": "ava --verbose",
+    "test": "jest",
+    "test:cov": "jest --collectCoverage",
     "lint": "eslint --fix ."
   },
   "keywords": [],
@@ -17,17 +18,18 @@
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.11",
+    "@types/jest": "^27.0.2",
     "@types/jsonwebtoken": "^8.5.5",
     "@types/lodash": "^4.14.175",
     "@types/node": "^15.0.1",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
-    "ava": "^3.15.0",
     "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "jest": "^27.3.1",
     "lodash": "^4.17.21",
+    "ts-jest": "^27.0.7",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },
@@ -38,13 +40,5 @@
     "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "uuid": "^8.3.2"
-  },
-  "ava": {
-    "extensions": [
-      "ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ]
   }
 }

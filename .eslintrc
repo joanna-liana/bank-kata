@@ -9,7 +9,6 @@
     "simple-import-sort"
   ],
   "extends": [
-    "airbnb",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
@@ -28,6 +27,8 @@
     "@typescript-eslint/member-delimiter-style": "error",
     "indent": ["error", 2],
     "max-len": ["error", 80],
+    "function-call-argument-newline": ["error", "always"],
+    "function-paren-newline": ["error", "multiline-arguments"],
     "no-unused-vars": "off",
     "no-mixed-spaces-and-tabs": "off",
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
