@@ -18,8 +18,6 @@ export class Account implements AccountService {
   ) { }
 
   deposit(amount: number): void {
-    this.#total += amount;
-
     this.#operationsLog.push({
       date: this.clock.currentDate,
       amount,
@@ -28,8 +26,6 @@ export class Account implements AccountService {
   }
 
   withdraw(amount: number): void {
-    this.#total -= amount;
-
     this.#operationsLog.push({
       date: this.clock.currentDate,
       amount,
@@ -43,13 +39,14 @@ export class Account implements AccountService {
         const parsedAmount = current.operation === 'withdraw' ?
           -current.amount :
           current.amount;
-        const line: Line = {
-          amount: parsedAmount,
-          balance: (total[i - 1]?.balance ?? this.#initialBalance) + parsedAmount,
-          date: current.date,
-        };
 
-        total.push(line);
+        const baseBalance = total[i - 1]?.balance ?? this.#initialBalance;
+
+        total.push({
+          amount: parsedAmount,
+          balance: baseBalance + parsedAmount,
+          date: current.date,
+        });
 
         return total;
       },

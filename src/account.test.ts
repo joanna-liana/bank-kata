@@ -28,6 +28,7 @@ describe(
         // when
         account.printStatement();
 
+        // then
         expect(print).toHaveBeenCalledWith([
           {
             date: new Date('2012-01-10'),
@@ -45,12 +46,6 @@ describe(
             balance: 2500
           }
         ]);
-        //         expect(print).toHaveBeenCalledWith(`
-        //   Date       || Amount || Balance
-        //   14/01/2012 || -500   || 2500
-        //   13/01/2012 || 2000   || 3000
-        //   10/01/2012 || 1000   || 1000
-        // `);
       }
     );
   }
