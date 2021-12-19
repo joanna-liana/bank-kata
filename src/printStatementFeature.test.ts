@@ -11,7 +11,7 @@ import {
 } from './TransactionsRepository';
 
 describe(
-  'Account',
+  'Print Statement',
   () => {
     let clock: Clock;
     let print: PrintHandler;
@@ -30,7 +30,43 @@ describe(
       );
     });
 
-    // TODO: remove getAll
+    it(
+      'Acceptance test',
+      async () => {
+        // given
+        clock.currentDate = new Date('2012-01-10');
+        account.deposit(1000);
+
+        clock.currentDate = new Date('2012-01-13');
+        account.deposit(2000);
+
+        clock.currentDate = new Date('2012-01-14');
+        account.withdraw(500);
+
+        // when
+        await account.printStatement();
+
+        // then
+        expect(print).toHaveBeenCalledWith([
+          {
+            date: new Date('2012-01-10'),
+            amount: 1000,
+            balance: 1000
+          },
+          {
+            date: new Date('2012-01-13'),
+            amount: 2000,
+            balance: 3000
+          },
+          {
+            date: new Date('2012-01-14'),
+            amount: -500,
+            balance: 2500
+          }
+        ]);
+      }
+    );
+
     it(
       'allows to deposit money',
       async () => {
