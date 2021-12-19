@@ -1,53 +1,50 @@
 import { AccountService } from './accountService';
-import { Clock } from './Clock';
 import { Line, PrintHandler } from './PrintHandler';
+import { TransactionsRepository } from './TransactionsRepository';
 
-interface LogData {
+export interface LogData {
   date: Date;
   amount: number;
 }
 
 export class Account implements AccountService {
   #initialBalance = 0;
-  #operationsLog: LogData[] = [];
 
   constructor(
-    private readonly clock: Clock,
+    private readonly transactionsRepo: TransactionsRepository,
     private readonly print: PrintHandler
   ) { }
 
   deposit(amount: number): void {
-    this.logOperation(amount);
+    this.logTransaction(amount);
   }
 
   withdraw(amount: number): void {
-    this.logOperation(-amount);
+    this.logTransaction(-amount);
   }
 
-  printStatement(): void {
-    const lines: Line[] = this.#operationsLog.reduce(
-      (total, current, i) => {
-        const parsedAmount = current.amount;
+  async printStatement(): Promise<void> {
+    const lines: Line[] = (await this.transactionsRepo.getAll())
+      .reduce(
+        (total, current, i) => {
+          const parsedAmount = current.amount;
 
-        const baseBalance = total[i - 1]?.balance ?? this.#initialBalance;
+          const baseBalance = total[i - 1]?.balance ?? this.#initialBalance;
 
-        total.push({
-          amount: parsedAmount,
-          balance: baseBalance + parsedAmount,
-          date: current.date,
-        });
+          total.push({
+            amount: parsedAmount,
+            balance: baseBalance + parsedAmount,
+            date: current.date,
+          });
 
-        return total;
-      },
-      [] as Line[]
-    );
+          return total;
+        },
+        [] as Line[]
+      );
     this.print(lines);
   }
 
-  private logOperation(amount: number) {
-    this.#operationsLog.push({
-      date: this.clock.currentDate,
-      amount,
-    });
+  private logTransaction(amount: number) {
+    this.transactionsRepo.logTransaction(amount);
   }
 }
