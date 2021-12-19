@@ -4,7 +4,6 @@ import { Line, PrintHandler } from './PrintHandler';
 
 interface LogData {
   date: Date;
-  operation: string;
   amount: number;
 }
 
@@ -18,27 +17,17 @@ export class Account implements AccountService {
   ) { }
 
   deposit(amount: number): void {
-    this.#operationsLog.push({
-      date: this.clock.currentDate,
-      amount,
-      operation: 'deposit'
-    });
+    this.logOperation(amount);
   }
 
   withdraw(amount: number): void {
-    this.#operationsLog.push({
-      date: this.clock.currentDate,
-      amount,
-      operation: 'withdraw'
-    });
+    this.logOperation(-amount);
   }
 
   printStatement(): void {
     const lines: Line[] = this.#operationsLog.reduce(
       (total, current, i) => {
-        const parsedAmount = current.operation === 'withdraw' ?
-          -current.amount :
-          current.amount;
+        const parsedAmount = current.amount;
 
         const baseBalance = total[i - 1]?.balance ?? this.#initialBalance;
 
@@ -53,5 +42,12 @@ export class Account implements AccountService {
       [] as Line[]
     );
     this.print(lines);
+  }
+
+  private logOperation(amount: number) {
+    this.#operationsLog.push({
+      date: this.clock.currentDate,
+      amount,
+    });
   }
 }
