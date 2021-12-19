@@ -68,7 +68,7 @@ describe(
     );
 
     it(
-      'deposits money',
+      'allows to deposit money',
       async () => {
         // when
         clock.currentDate = new Date('2012-01-10');
@@ -80,6 +80,23 @@ describe(
         expect(transactions).toStrictEqual([{
           date: new Date('2012-01-10'),
           amount: 100
+        }]);
+      }
+    );
+
+    it(
+      'allows to withdraw money',
+      async () => {
+        // when
+        clock.currentDate = new Date('2012-01-12');
+        account.withdraw(100);
+
+        // then
+        const transactions = await transactionsRepo.getAll();
+
+        expect(transactions).toStrictEqual([{
+          date: new Date('2012-01-12'),
+          amount: -100
         }]);
       }
     );
