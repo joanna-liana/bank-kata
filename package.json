@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "build:test": "tsc -p tsconfig.test.json --outDir dist-test",
     "test": "jest",
     "test:cov": "jest --collectCoverage",
     "lint": "eslint --fix ."
@@ -13,11 +15,11 @@
   "author": "Joanna Liana",
   "license": "ISC",
   "engines": {
-    "node": ">=16.1.0"
+    "node": ">=20.4.0"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
-    "@types/node": "^16.1.0",
+    "@types/node": "^20.4.0",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
     "eslint": "^7.32.0",
