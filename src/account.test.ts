@@ -1,4 +1,5 @@
-import { describe, it } from 'node:test';
+import assert from 'assert';
+import { beforeEach, describe, it } from 'node:test';
 
 import {
   Account
@@ -21,7 +22,7 @@ describe('Account', () => {
   beforeEach(() => {
     clock = { currentDate: new Date() };
 
-    print = jest.fn();
+    print = () => { /* noop */ };
     transactionsRepo = new InMemoryTransactionsRepository(clock);
 
     account = new Account(
@@ -30,7 +31,6 @@ describe('Account', () => {
     );
   });
 
-  // TODO: remove getAll
   it('allows to deposit money', async () => {
     // when
     clock.currentDate = new Date('2012-01-10');
@@ -39,7 +39,7 @@ describe('Account', () => {
     // then
     const transactions = await transactionsRepo.getAll();
 
-    expect(transactions).toStrictEqual([{
+    assert.deepStrictEqual(transactions, [{
       date: new Date('2012-01-10'),
       amount: 100
     }]);
@@ -53,7 +53,7 @@ describe('Account', () => {
     // then
     const transactions = await transactionsRepo.getAll();
 
-    expect(transactions).toStrictEqual([{
+    assert.deepStrictEqual(transactions, [{
       date: new Date('2012-01-12'),
       amount: -100
     }]);

@@ -2,7 +2,8 @@
   "extends": "./tsconfig.base.json",
   "include": [
     "src/types/*.d.ts",
-    "./src/**/*.test.ts"
+    "./src/**/account.ts",
+    "./src/**/account.test.ts"
   ],
   "exclude": ["node_modules"]
 }

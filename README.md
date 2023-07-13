@@ -1,6 +1,10 @@
 # Bank Kata
 
-=================
+Apart from the kata solution, the code includes a test written for Node's native test runner.
+
+Use `make node_test` to run it.
+
+## Description
 
 https://katalyst.codurance.com/bank
 

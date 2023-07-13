@@ -8,6 +8,7 @@
     "build": "tsc",
     "build:test": "tsc -p tsconfig.test.json --outDir dist-test",
     "test": "jest",
+    "test:node": "node --test --watch ./dist-test/account.test.js",
     "test:cov": "jest --collectCoverage",
     "lint": "eslint --fix ."
   },
